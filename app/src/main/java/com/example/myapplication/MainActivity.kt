@@ -14,10 +14,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val recyclerView = findViewById(R.id.user_recyclerview) as RecyclerView
+        val usersRecyclerView = findViewById(R.id.user_recyclerview) as RecyclerView
+        val toDosRecyclerView = findViewById(R.id.to_do_recyclerview) as RecyclerView
 
-        recyclerView.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
-
+        usersRecyclerView.layoutManager = LinearLayoutManager(this,RecyclerView.VERTICAL,false)
+        toDosRecyclerView.layoutManager = LinearLayoutManager(this , RecyclerView.VERTICAL , false)
 
     }
 
