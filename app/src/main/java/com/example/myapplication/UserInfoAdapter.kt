@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class UserInfoAdapter (val userList : ArrayList<User>) : RecyclerView.Adapter<UserInfoAdapter.ViewHolder>()
+class UserInfoAdapter (val userList : ArrayList<UserEntity>) : RecyclerView.Adapter<UserInfoAdapter.ViewHolder>()
 {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.activity_main,parent,false)
@@ -18,10 +18,10 @@ class UserInfoAdapter (val userList : ArrayList<User>) : RecyclerView.Adapter<Us
     }
 
     override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-            val user : User = userList[position]
+            val user : UserEntity = userList[position]
 
-            holder.textViewName.text = user.name
-            holder.textViewUsername.text = user.username
+            holder.textViewName.text = user.user.name
+            holder.textViewUsername.text = user.user.username
     }
 
 
