@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface GetUserService {
 
-    @GET()
-    fun getAllUsers() : Call<UserEntity>
+    @GET("users")
+    fun getAllUsers() : Call<MutableList<UserEntity>>
 }

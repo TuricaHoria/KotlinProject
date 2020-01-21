@@ -13,6 +13,7 @@ class ToDoAdapter (val toDoList : ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAd
         val toDo : ToDo = toDoList[position]
         holder.titleTextView.text = toDo.title
         holder.completedTextView.text = toDo.completed.toString()
+        holder.idTextView.text = toDo.id.toString()
 
     }
 
@@ -28,8 +29,9 @@ class ToDoAdapter (val toDoList : ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAd
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        val titleTextView = itemView.findViewById(R.id.title) as TextView
-        val completedTextView = itemView.findViewById(R.id.completed) as TextView
+        val titleTextView = itemView.findViewById(R.id.to_do_title) as TextView
+        val completedTextView = itemView.findViewById(R.id.to_do_completed) as TextView
+        val idTextView = itemView.findViewById(R.id.to_do_id) as TextView
     }
 
 }

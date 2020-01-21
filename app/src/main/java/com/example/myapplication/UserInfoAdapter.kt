@@ -22,6 +22,9 @@ class UserInfoAdapter (val userList : ArrayList<UserEntity>) : RecyclerView.Adap
 
             holder.textViewName.text = user.user.name
             holder.textViewUsername.text = user.user.username
+            holder.textViewId.text = user.user.id.toString()
+            holder.textViewEmail.text = user.user.email
+
     }
 
 
@@ -29,6 +32,8 @@ class UserInfoAdapter (val userList : ArrayList<UserEntity>) : RecyclerView.Adap
 
         val textViewName = itemView.findViewById(R.id.user_name) as TextView
         val textViewUsername = itemView.findViewById(R.id.user_username) as TextView
+        val textViewId = itemView.findViewById(R.id.user_id) as TextView
+        val textViewEmail= itemView.findViewById(R.id.user_email) as TextView
     }
 
 }

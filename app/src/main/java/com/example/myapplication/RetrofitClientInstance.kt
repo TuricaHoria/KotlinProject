@@ -7,7 +7,7 @@ object RetrofitClientInstance  {
 
 
 private var retrofit : Retrofit? = null
-    private val BASE_URL = "https://jsonplaceholder.typicode.com/users"
+    private val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
     val retrofitInstance:Retrofit?
 
