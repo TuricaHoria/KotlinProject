@@ -1,3 +1,3 @@
 package com.example.myapplication
 
-data class UserEntity(val user : User , val geo : Geo , val address: Address , val company: Company)
+data class UserEntity(val id : Int , val name : String , val username : String , val email : String )

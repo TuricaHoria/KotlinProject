@@ -25,36 +25,7 @@ class ToDoFragment : Fragment() {
 
 
 
-        val service = RetrofitClientInstance.retrofitInstance?.create(GetToDoService::class.java)
 
-        val call: Call<MutableList<ToDo>> = service!!.getToDos()
-
-        call.enqueue(object : Callback<MutableList<ToDo>> {
-
-            override fun onFailure(call: Call<MutableList<ToDo>>, t: Throwable) {
-                Log.e("Error", t.message.toString())
-            }
-
-            override fun onResponse(
-                call: Call<MutableList<ToDo>>,
-                response: Response<MutableList<ToDo>>
-            ) {
-                val toDos: MutableList<ToDo> = response.body()!!
-
-                val stringBuilder = StringBuilder()
-
-                for (toDo: ToDo in toDos) {
-
-                    stringBuilder.append(toDo.title)
-                    stringBuilder.append("\n")
-                    stringBuilder.append(toDo.id)
-                    stringBuilder.append("\n")
-                    stringBuilder.append(toDo.completed)
-                    stringBuilder.append("\n")
-                    stringBuilder.append("\n")
-                }
-            }
-        })
 
         return inflater.inflate(R.layout.to_do_fragment, container, false)
     }

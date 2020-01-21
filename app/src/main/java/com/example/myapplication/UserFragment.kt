@@ -1,24 +1,29 @@
 package com.example.myapplication
 
 import android.content.Context
+import android.nfc.Tag
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import java.lang.StringBuilder
+import io.reactivex.schedulers.Schedulers
 
 
 class UserFragment : Fragment() {
 
+    private val TAG = MainActivity::class.java.simpleName
 
-    lateinit var compositeDisopasble: CompositeDisposable
+    private val BASE_URL = "https://jsonplaceholder.typicode.com/"
+
+    private var mCompositeDisposable: CompositeDisposable? = null
+
+    private var mUsers: MutableList<UserEntity>? = null
+
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
@@ -30,38 +35,17 @@ class UserFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        val service = RetrofitClientInstance.retrofitInstance?.create(GetUserService::class.java)
+        mCompositeDisposable = CompositeDisposable()
 
-        val call: Call<MutableList<UserEntity>> = service!!.getAllUsers()
+        mCompositeDisposable!!.add(
+            ClientRequestAPI.getUsers()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .map {
+                    mUsers = it }
+                .subscribe()
+        )
 
-        call.enqueue(object : Callback<MutableList<UserEntity>> {
-
-            override fun onFailure(call: Call<MutableList<UserEntity>>, t: Throwable) {
-                Log.e("Error", t.message.toString())
-            }
-
-            override fun onResponse(
-                call: Call<MutableList<UserEntity>>,
-                response: Response<MutableList<UserEntity>>
-            ) {
-                val allUsers: MutableList<UserEntity> = response.body()!!
-
-                val stringBuilder = StringBuilder()
-
-                for (userEntity: UserEntity in allUsers) {
-
-                    stringBuilder.append(userEntity.user.username)
-                    stringBuilder.append("\n")
-                    stringBuilder.append(userEntity.user.email)
-                    stringBuilder.append("\n")
-                    stringBuilder.append(userEntity.user.id)
-                    stringBuilder.append("\n")
-                    stringBuilder.append(userEntity.user.name)
-                    stringBuilder.append("\n")
-                    stringBuilder.append("\n")
-                }
-            }
-        })
         return inflater.inflate(R.layout.users_fragment, container, false)
 
     }
@@ -84,6 +68,11 @@ class UserFragment : Fragment() {
 
     override fun onAttachFragment(childFragment: Fragment?) {
         super.onAttachFragment(childFragment)
+    }
+
+    private fun handleResponse (users : MutableList<UserEntity>)
+    {
+        mUsers = users
     }
 
 

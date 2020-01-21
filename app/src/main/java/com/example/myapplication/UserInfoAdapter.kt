@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class UserInfoAdapter (val userList : ArrayList<UserEntity>) : RecyclerView.Adapter<UserInfoAdapter.ViewHolder>()
-{
+class UserInfoAdapter(val userList: MutableList<UserEntity>) : RecyclerView.Adapter<UserInfoAdapter.ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.activity_main,parent,false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent, false)
         return ViewHolder(v)
     }
 
@@ -17,23 +17,23 @@ class UserInfoAdapter (val userList : ArrayList<UserEntity>) : RecyclerView.Adap
         return userList.size
     }
 
-    override fun onBindViewHolder(holder:ViewHolder, position: Int) {
-            val user : UserEntity = userList[position]
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-            holder.textViewName.text = user.user.name
-            holder.textViewUsername.text = user.user.username
-            holder.textViewId.text = user.user.id.toString()
-            holder.textViewEmail.text = user.user.email
+        val user: UserEntity = userList[position]
 
+        holder.textViewName.text = user.name
+        holder.textViewUsername.text = user.username
+        holder.textViewId.text = user.id.toString()
+        holder.textViewEmail.text = user.email
     }
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val textViewName = itemView.findViewById(R.id.user_name) as TextView
         val textViewUsername = itemView.findViewById(R.id.user_username) as TextView
         val textViewId = itemView.findViewById(R.id.user_id) as TextView
-        val textViewEmail= itemView.findViewById(R.id.user_email) as TextView
+        val textViewEmail = itemView.findViewById(R.id.user_email) as TextView
     }
 
 }

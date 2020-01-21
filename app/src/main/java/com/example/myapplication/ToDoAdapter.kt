@@ -6,11 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoAdapter (val toDoList : ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAdapter.ViewHolder>()
-{
+class ToDoAdapter(val toDoList: ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        val toDo : ToDo = toDoList[position]
+        val toDo: ToDo = toDoList[position]
         holder.titleTextView.text = toDo.title
         holder.completedTextView.text = toDo.completed.toString()
         holder.idTextView.text = toDo.id.toString()
@@ -18,7 +18,7 @@ class ToDoAdapter (val toDoList : ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAd
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.to_do_fragment,parent,false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.to_do_fragment, parent, false)
         return ViewHolder(v)
     }
 
@@ -27,7 +27,7 @@ class ToDoAdapter (val toDoList : ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAd
     }
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val titleTextView = itemView.findViewById(R.id.to_do_title) as TextView
         val completedTextView = itemView.findViewById(R.id.to_do_completed) as TextView
