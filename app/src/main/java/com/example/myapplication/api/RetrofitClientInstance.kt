@@ -1,8 +1,7 @@
-package com.example.myapplication
+package com.example.myapplication.api
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import okhttp3.Authenticator
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory

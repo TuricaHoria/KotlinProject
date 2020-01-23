@@ -1,16 +1,7 @@
 package com.example.myapplication
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Fragments.FragmentListener
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.users_fragment.*
 
 
 class MainActivity : AppCompatActivity(), FragmentListener {
@@ -22,24 +13,21 @@ class MainActivity : AppCompatActivity(), FragmentListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        replaceFragment(TAG = UserFragment::class.java.name)
+        replaceFragment(null ,TAG = UserFragment::class.java.simpleName)
     }
 
     override fun replaceFragment(bundle: Bundle?, TAG: String) {
         val transaction = manager.beginTransaction()
 
         val fragment = when (TAG) {
-            UserFragment::class.java.name ->
+            UserFragment::class.java.simpleName ->
                 UserFragment.newInstance(bundle)
 
-            ToDoFragment::class.java.name ->
+            ToDoFragment::class.java.simpleName ->
                 ToDoFragment.newInstance(bundle)
 
             else -> return
         }
-
-
         transaction.replace(R.id.frame, fragment)
         transaction.addToBackStack(null)
         transaction.commit()

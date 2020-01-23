@@ -9,7 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Fragments.FragmentListener
+import com.example.myapplication.api.ClientRequestAPI
+import com.example.myapplication.adapters.UserInfoAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -19,7 +20,6 @@ import java.lang.RuntimeException
 
 class UserFragment : Fragment() {
 
-    private val TAG = UserFragment::class.java.simpleName
 
     private var fragmentListener: FragmentListener? = null
 
@@ -31,7 +31,7 @@ class UserFragment : Fragment() {
 
     companion object {
         const val ARG_USERID = "userId"
-
+        const val TAG = "UserFragment"
         fun newInstance(bundle: Bundle?): UserFragment {
             val fragment = UserFragment()
             fragment.arguments = bundle
@@ -75,7 +75,7 @@ class UserFragment : Fragment() {
                             val bundle = Bundle()
                             bundle.putInt(ARG_USERID, userId)
                             Log.d(TAG, "The bundle sent is $bundle")
-                            fragmentListener?.replaceFragment(bundle, TAG)
+                            fragmentListener?.replaceFragment(bundle, ToDoFragment.TAG)
 
                         }
                         user_recyclerview.adapter = mAdapter

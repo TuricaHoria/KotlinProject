@@ -9,21 +9,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.Fragments.FragmentListener
+import com.example.myapplication.models.ToDo
+import com.example.myapplication.adapters.ToDoAdapter
+import com.example.myapplication.api.ClientRequestAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.to_do_fragment.*
-import kotlinx.android.synthetic.main.users_fragment.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.lang.RuntimeException
-import java.lang.StringBuilder
 
 class ToDoFragment : Fragment() {
 
-    private val TAG = ToDoFragment::class.java.simpleName
 
     private lateinit var fragmentListener: FragmentListener
 
@@ -34,10 +30,10 @@ class ToDoFragment : Fragment() {
     private var toDosList: MutableList<ToDo>? = null
 
     companion object {
-
+        const val TAG = "ToDoFragment"
         const val ARG_USERID = "userId"
-        fun newInstance(bundle: Bundle?): UserFragment {
-            val fragment = UserFragment()
+        fun newInstance(bundle: Bundle?): ToDoFragment {
+            val fragment = ToDoFragment()
             fragment.arguments = bundle
             return fragment
         }
@@ -54,7 +50,7 @@ class ToDoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-       setUpAdapter()
+        setUpAdapter()
         getToDos()
     }
 
@@ -95,6 +91,8 @@ class ToDoFragment : Fragment() {
     fun getToDos() {
 
         val userId = arguments?.getInt(ARG_USERID) ?: return
+
+        mCompositeDisposable = CompositeDisposable()
 
         mCompositeDisposable?.add(
             ClientRequestAPI.getToDos(userId)

@@ -1,7 +1,9 @@
-package com.example.myapplication
+package com.example.myapplication.api
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import com.example.myapplication.models.ToDo
+import com.example.myapplication.models.UserEntity
 import io.reactivex.Observable
 
 object ClientRequestAPI {
