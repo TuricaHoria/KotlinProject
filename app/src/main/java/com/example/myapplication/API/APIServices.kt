@@ -1,8 +1,8 @@
 package com.example.myapplication
 
 import io.reactivex.Observable
-import retrofit2.Call
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 interface APIServices {
@@ -11,5 +11,7 @@ interface APIServices {
     fun getAllUsers() : Observable<MutableList<UserEntity>>
 
     @GET("todos")
-    fun getToDos() : Observable<MutableList<ToDo>>
+    fun getToDos(
+        @Query ("userId") userId : Int
+    ) : Observable<MutableList<ToDo>>
 }

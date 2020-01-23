@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ToDoAdapter(val toDoList: ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
+class ToDoAdapter(val toDoList: MutableList<ToDo>) : RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
@@ -18,7 +19,8 @@ class ToDoAdapter(val toDoList: ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAdap
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.to_do_fragment, parent, false)
+
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.to_do, parent, false)
         return ViewHolder(v)
     }
 
@@ -32,6 +34,8 @@ class ToDoAdapter(val toDoList: ArrayList<ToDo>) : RecyclerView.Adapter<ToDoAdap
         val titleTextView = itemView.findViewById(R.id.to_do_title) as TextView
         val completedTextView = itemView.findViewById(R.id.to_do_completed) as TextView
         val idTextView = itemView.findViewById(R.id.to_do_id) as TextView
+
+
     }
 
 }
