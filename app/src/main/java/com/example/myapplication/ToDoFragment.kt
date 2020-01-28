@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.models.ToDo
 import com.example.myapplication.adapters.ToDoAdapter
 import com.example.myapplication.api.ClientRequestAPI
+import com.example.myapplication.fragments.NotificationSetupFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -32,6 +33,7 @@ class ToDoFragment : Fragment() {
     companion object {
         const val TAG = "ToDoFragment"
         const val ARG_USERID = "userId"
+        const val ARG_TODOID = "toDoId"
         fun newInstance(bundle: Bundle?): ToDoFragment {
             val fragment = ToDoFragment()
             fragment.arguments = bundle
@@ -50,7 +52,6 @@ class ToDoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        setUpAdapter()
         getToDos()
     }
 
@@ -74,13 +75,6 @@ class ToDoFragment : Fragment() {
         }
 
     }
-
-    fun setUpAdapter() {
-
-        mAdapter = toDosList?.let { ToDoAdapter(it) }
-
-    }
-
     fun setUpRecyclerView(adapter: ToDoAdapter) {
 
         to_do_recyclerview.adapter = adapter
@@ -100,9 +94,17 @@ class ToDoFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { toDos ->
+                        mAdapter = ToDoAdapter(toDos){toDoId ->
+                            val bundle = Bundle()
+                            bundle.putInt(ARG_TODOID,toDoId)
+                            fragmentListener.replaceFragment(bundle, NotificationSetupFragment.TAG)
 
-                        mAdapter = ToDoAdapter(toDos)
-                        mAdapter?.let { setUpRecyclerView(it) }
+                        }
+                        mAdapter?.let {
+                            setUpRecyclerView(it)
+
+                        }
+
 
                     },
                     { ERROR ->

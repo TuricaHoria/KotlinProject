@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.fragments.NotificationSetupFragment
 
 
 class MainActivity : AppCompatActivity(), FragmentListener {
@@ -26,6 +27,9 @@ class MainActivity : AppCompatActivity(), FragmentListener {
             ToDoFragment::class.java.simpleName ->
                 ToDoFragment.newInstance(bundle)
 
+            NotificationSetupFragment::class.java.simpleName ->
+                NotificationSetupFragment.newInstance(bundle)
+
             else -> return
         }
         transaction.replace(R.id.frame, fragment)
@@ -42,6 +46,9 @@ class MainActivity : AppCompatActivity(), FragmentListener {
 
             ToDoFragment::class.java.name ->
                 ToDoFragment.newInstance(bundle)
+
+            NotificationSetupFragment::class.java.simpleName ->
+                NotificationSetupFragment.newInstance(bundle)
 
             else -> return
         }
