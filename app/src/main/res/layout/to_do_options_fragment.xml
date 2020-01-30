@@ -7,66 +7,72 @@
 
 
     <Button
-        android:id="@+id/time_button"
-        android:layout_width="match_parent"
+        android:id="@+id/bt_time"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/big_margin"
         android:background="@color/buttonColorPink"
         android:text="Pick a time "
-        app:layout_constraintBottom_toTopOf="@id/date_button"
+        app:layout_constraintBottom_toTopOf="@id/bt_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
     </Button>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/TV_time"
+        android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Pick a time"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/date_button"
+        app:layout_constraintBottom_toTopOf="@id/bt_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time_button">
+        app:layout_constraintTop_toBottomOf="@id/bt_time">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
     <Button
-        android:id="@+id/date_button"
-        android:layout_width="match_parent"
+        android:id="@+id/bt_date"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/big_margin"
         android:background="@color/buttonColorTurquoise"
         android:text="Pick a date"
-        app:layout_constraintBottom_toTopOf="@id/notification_button"
-        app:layout_constraintTop_toBottomOf="@+id/time_button">
+        app:layout_constraintBottom_toTopOf="@id/bt_notification"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_time">
 
     </Button>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/TV_date"
+        android:id="@+id/tv_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="Pick a date"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@id/notification_button"
+        app:layout_constraintBottom_toTopOf="@id/bt_notification"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_button">
+        app:layout_constraintTop_toBottomOf="@id/bt_date">
 
     </androidx.appcompat.widget.AppCompatTextView>
 
     <Button
-        android:id="@+id/notification_button"
-        android:layout_width="match_parent"
+        android:id="@+id/bt_notification"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="20dp"
+        android:layout_margin="@dimen/big_margin"
         android:background="@color/buttonColorYellow"
         android:text="Create notification"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/date_button">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bt_date">
 
     </Button>
 

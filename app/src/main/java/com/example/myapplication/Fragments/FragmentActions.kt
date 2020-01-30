@@ -1,8 +1,8 @@
-package com.example.myapplication
+package com.example.myapplication.Fragments
 
 import android.os.Bundle
 
-interface FragmentListener {
+interface FragmentActions {
 
     fun replaceFragment(bundle: Bundle? = null, TAG: String)
     fun addFragment(bundle: Bundle? = null, TAG: String)

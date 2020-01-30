@@ -2,10 +2,13 @@ package com.example.myapplication
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.fragments.NotificationSetupFragment
+import com.example.myapplication.Fragments.FragmentActions
+import com.example.myapplication.Fragments.NotificationSetupFragment
+import com.example.myapplication.Fragments.ToDoFragment
+import com.example.myapplication.Fragments.UserFragment
 
 
-class MainActivity : AppCompatActivity(), FragmentListener {
+class MainActivity : AppCompatActivity(), FragmentActions {
 
     private val TAG = MainActivity::class.java.simpleName
 
@@ -14,7 +17,7 @@ class MainActivity : AppCompatActivity(), FragmentListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        replaceFragment(null ,TAG = UserFragment::class.java.simpleName)
+        replaceFragment(null, TAG = UserFragment::class.java.simpleName)
     }
 
     override fun replaceFragment(bundle: Bundle?, TAG: String) {
@@ -59,7 +62,6 @@ class MainActivity : AppCompatActivity(), FragmentListener {
     }
 
     override fun removeFragment(TAG: String) {
-
     }
 
 }

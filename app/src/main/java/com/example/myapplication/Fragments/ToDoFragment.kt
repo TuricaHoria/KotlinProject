@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.Fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.myapplication.models.ToDo
-import com.example.myapplication.adapters.ToDoAdapter
-import com.example.myapplication.api.ClientRequestAPI
-import com.example.myapplication.fragments.NotificationSetupFragment
+import com.example.myapplication.R
+import com.example.myapplication.Models.ToDo
+import com.example.myapplication.Adapters.ToDoAdapter
+import com.example.myapplication.Api.ClientRequestAPI
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -22,12 +22,9 @@ import java.lang.RuntimeException
 class ToDoFragment : Fragment() {
 
 
-    private lateinit var fragmentListener: FragmentListener
-
+    private lateinit var fragmentActions: FragmentActions
     private var mCompositeDisposable: CompositeDisposable? = null
-
     private var mAdapter: ToDoAdapter? = null
-
     private var toDosList: MutableList<ToDo>? = null
 
     companion object {
@@ -68,17 +65,17 @@ class ToDoFragment : Fragment() {
     override fun onAttach(context: Context?) {
         super.onAttach(context)
 
-        if (context is FragmentListener) {
-            fragmentListener = context
+        if (context is FragmentActions) {
+            fragmentActions = context
         } else {
-            throw RuntimeException(context.toString() + "implement FragmentListener")
+            throw RuntimeException(context.toString() + "implement FragmentActions")
         }
-
     }
+
     fun setUpRecyclerView(adapter: ToDoAdapter) {
 
-        to_do_recyclerview.adapter = adapter
-        to_do_recyclerview.layoutManager =
+        rv_to_do_list.adapter = adapter
+        rv_to_do_list.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
@@ -94,18 +91,14 @@ class ToDoFragment : Fragment() {
                 .subscribeOn(Schedulers.io())
                 .subscribe(
                     { toDos ->
-                        mAdapter = ToDoAdapter(toDos){toDoId ->
+                        mAdapter = ToDoAdapter(toDos) { toDoId ->
                             val bundle = Bundle()
-                            bundle.putInt(ARG_TODOID,toDoId)
-                            fragmentListener.replaceFragment(bundle, NotificationSetupFragment.TAG)
-
+                            bundle.putInt(ARG_TODOID, toDoId)
+                            fragmentActions.replaceFragment(bundle, NotificationSetupFragment.TAG)
                         }
                         mAdapter?.let {
                             setUpRecyclerView(it)
-
                         }
-
-
                     },
                     { ERROR ->
 
@@ -113,6 +106,5 @@ class ToDoFragment : Fragment() {
                     }
                 )
         )
-
     }
 }

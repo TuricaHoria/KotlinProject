@@ -1,7 +1,6 @@
-package com.example.myapplication.fragments
+package com.example.myapplication.Fragments
 
 import android.app.*
-import android.content.Context
 import android.content.Intent
 import java.util.Calendar
 import android.os.Bundle
@@ -12,15 +11,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
-import com.example.myapplication.MyAlarmReceiver
+import com.example.myapplication.Receivers.MyAlarmReceiver
 import com.example.myapplication.R
 import kotlinx.android.synthetic.main.to_do_options_fragment.*
 import java.text.SimpleDateFormat
-import java.time.Month
 
 class NotificationSetupFragment : Fragment() {
 
-    private val REQUEST_CODE = 100
+    private val REQUEST_CODE_PENDING_INTENT = 100
     private var pendingIntent: PendingIntent? = null
 
     companion object {
@@ -31,7 +29,6 @@ class NotificationSetupFragment : Fragment() {
             return fragment
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,24 +42,29 @@ class NotificationSetupFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val calendar = Calendar.getInstance()
-
-        val alarmManager = getSystemService(context?:return , AlarmManager::class.java) as AlarmManager
+        val alarmManager =
+            getSystemService(context ?: return, AlarmManager::class.java) as AlarmManager
         val intent = Intent(context, MyAlarmReceiver::class.java)
         pendingIntent = PendingIntent.getBroadcast(
             context,
-            REQUEST_CODE,
+            REQUEST_CODE_PENDING_INTENT,
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        time_button.setOnClickListener {
+        onClickTimeButton(calendar)
+        onClickDateButton(calendar)
+        onNotificationButtonSetAlarm(calendar, alarmManager)
+    }
+
+    fun onClickTimeButton(calendar: Calendar) {
+        bt_time.setOnClickListener {
 
             val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, min ->
 
                 calendar.set(Calendar.HOUR_OF_DAY, hour)
                 calendar.set(Calendar.MINUTE, min)
-                TV_time.text = SimpleDateFormat("HH:mm").format(calendar.time)
-
+                tv_time.text = SimpleDateFormat("HH:mm").format(calendar.time)
             }
 
             TimePickerDialog(
@@ -72,61 +74,40 @@ class NotificationSetupFragment : Fragment() {
                 calendar.get(Calendar.MINUTE),
                 true
             ).show()
-
-
         }
+    }
 
-
-        date_button.setOnClickListener {
+    fun onClickDateButton(calendar: Calendar) {
+        bt_date.setOnClickListener {
 
             val year = calendar.get(Calendar.YEAR)
             val month = calendar.get(Calendar.MONTH)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-
             val pickerDialog = DatePickerDialog(
                 context ?: return@setOnClickListener,
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
 
-                    TV_date.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year)
-                   /* calendar.set(Calendar.YEAR, year)
-                    calendar.set(Calendar.MONTH, monthOfYear)
-                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)*/
+                    tv_date.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year)
+
                 }, year, month, day
             )
 
             pickerDialog.show()
         }
+    }
 
-        notification_button.setOnClickListener {
+    fun onNotificationButtonSetAlarm(calendar: Calendar, alarmManager: AlarmManager) {
+        bt_notification.setOnClickListener {
 
-            var time = System.currentTimeMillis()
-            Log.d(TAG , "Time in millis on the calendar is ${calendar.timeInMillis}")
-            Log.d(TAG , "Current time in millis is $time")
+            val time = System.currentTimeMillis()
+            Log.d(TAG, "Time in millis on the calendar is ${calendar.timeInMillis}")
+            Log.d(TAG, "Current time in millis is $time")
             alarmManager.set(
                 AlarmManager.RTC,
                 calendar.timeInMillis,
                 pendingIntent
-
             )
-            Toast.makeText(context,"Created Alarm Notification" , Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Created Alarm Notification", Toast.LENGTH_SHORT).show()
         }
     }
-
-
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onStop() {
-        super.onStop()
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-
-
-    }
-
-
 }

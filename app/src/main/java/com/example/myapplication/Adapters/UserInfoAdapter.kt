@@ -1,4 +1,4 @@
-package com.example.myapplication.adapters
+package com.example.myapplication.Adapters
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.models.UserEntity
+import com.example.myapplication.Models.UserEntity
 
 class UserInfoAdapter(
     private val userList: MutableList<UserEntity>,
@@ -19,7 +19,6 @@ class UserInfoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.user_info, parent, false)
-
         Log.d(TAG, "The value of the view is $v")
         return ViewHolder(v)
     }
@@ -31,18 +30,16 @@ class UserInfoAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val user: UserEntity = userList[position]
-
         holder.bind(user)
 
     }
 
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val textViewName = itemView.findViewById(R.id.user_name) as TextView
-        val textViewUsername = itemView.findViewById(R.id.user_username) as TextView
-        val textViewId = itemView.findViewById(R.id.user_id) as TextView
-        val textViewEmail = itemView.findViewById(R.id.user_email) as TextView
+        val textViewName = itemView.findViewById(R.id.tv_user_name) as TextView
+        val textViewUsername = itemView.findViewById(R.id.tv_user_username) as TextView
+        val textViewId = itemView.findViewById(R.id.tv_user_id) as TextView
+        val textViewEmail = itemView.findViewById(R.id.tv_user_email) as TextView
         val cardViewUser = itemView.findViewById(R.id.cv_user) as CardView
 
         fun bind(user: UserEntity) {
@@ -60,12 +57,9 @@ class UserInfoAdapter(
             Log.d(TAG, "The value of the user's email is ${user.email}")
 
             cardViewUser.setOnClickListener {
-                onUserSelected.invoke (user.id)
+                onUserSelected.invoke(user.id)
                 Log.d(TAG, "Invoked the user id ")
-
             }
         }
     }
-
-
 }
