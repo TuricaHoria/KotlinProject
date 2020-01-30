@@ -1,14 +1,15 @@
 package com.example.myapplication.fragments
 
 import android.app.*
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.icu.util.Calendar
+import java.util.Calendar
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.myapplication.MyAlarmReceiver
@@ -23,7 +24,7 @@ class NotificationSetupFragment : Fragment() {
     private var pendingIntent: PendingIntent? = null
 
     companion object {
-        const val TAG = "NotificationSetupFragment"
+        const val TAG = "NotificationSetup"
         fun newInstance(bundle: Bundle?): NotificationSetupFragment {
             val fragment = NotificationSetupFragment()
             fragment.arguments = bundle
@@ -78,10 +79,9 @@ class NotificationSetupFragment : Fragment() {
 
         date_button.setOnClickListener {
 
-            val c = Calendar.getInstance()
-            val year = c.get(Calendar.YEAR)
-            val month = c.get(Calendar.MONTH)
-            val day = c.get(Calendar.DAY_OF_MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
 
 
             val pickerDialog = DatePickerDialog(
@@ -89,25 +89,27 @@ class NotificationSetupFragment : Fragment() {
                 DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
 
                     TV_date.setText("" + dayOfMonth + "/" + monthOfYear + "/" + year)
-                    calendar.set(Calendar.YEAR, year)
+                   /* calendar.set(Calendar.YEAR, year)
                     calendar.set(Calendar.MONTH, monthOfYear)
-                    calendar.set(Calendar.DAY_OF_YEAR, dayOfMonth)
-                },
-                year,
-                month,
-                day
+                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)*/
+                }, year, month, day
             )
 
             pickerDialog.show()
         }
 
         notification_button.setOnClickListener {
-            alarmManager.setExact(
+
+            var time = System.currentTimeMillis()
+            Log.d(TAG , "Time in millis on the calendar is ${calendar.timeInMillis}")
+            Log.d(TAG , "Current time in millis is $time")
+            alarmManager.set(
                 AlarmManager.RTC,
                 calendar.timeInMillis,
                 pendingIntent
 
             )
+            Toast.makeText(context,"Created Alarm Notification" , Toast.LENGTH_SHORT).show()
         }
     }
 
