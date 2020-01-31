@@ -1,5 +1,6 @@
 package com.example.myapplication.Fragments
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.Intent
 import java.util.Calendar
@@ -22,7 +23,7 @@ class NotificationSetupFragment : Fragment() {
     private var pendingIntent: PendingIntent? = null
 
     companion object {
-        const val TAG = "NotificationSetup"
+        const val TAG = "NotificationSetupFragment"
         fun newInstance(bundle: Bundle?): NotificationSetupFragment {
             val fragment = NotificationSetupFragment()
             fragment.arguments = bundle
@@ -96,6 +97,7 @@ class NotificationSetupFragment : Fragment() {
         }
     }
 
+    @SuppressLint("LongLogTag")
     fun onNotificationButtonSetAlarm(calendar: Calendar, alarmManager: AlarmManager) {
         bt_notification.setOnClickListener {
 

@@ -25,7 +25,6 @@ class ToDoFragment : Fragment() {
     private lateinit var fragmentActions: FragmentActions
     private var mCompositeDisposable: CompositeDisposable? = null
     private var mAdapter: ToDoAdapter? = null
-    private var toDosList: MutableList<ToDo>? = null
 
     companion object {
         const val TAG = "ToDoFragment"
@@ -72,14 +71,14 @@ class ToDoFragment : Fragment() {
         }
     }
 
-    fun setUpRecyclerView(adapter: ToDoAdapter) {
+    private fun setUpRecyclerView(adapter: ToDoAdapter) {
 
         rv_to_do_list.adapter = adapter
         rv_to_do_list.layoutManager =
             LinearLayoutManager(context, RecyclerView.VERTICAL, false)
     }
 
-    fun getToDos() {
+    private fun getToDos() {
 
         val userId = arguments?.getInt(ARG_USERID) ?: return
 
