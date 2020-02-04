@@ -6,4 +6,5 @@
     <color name="buttonColorPink">#ff9999</color>
     <color name="buttonColorTurquoise">#33cccc</color>
     <color name="buttonColorYellow">#ffff66</color>
+    <color name="black">#000000</color>
 </resources>
