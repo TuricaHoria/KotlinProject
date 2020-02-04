@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,6 +50,7 @@ class ToDoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         getToDos()
+        setupFavorites(view)
     }
 
     override fun onStart() {
@@ -105,5 +107,23 @@ class ToDoFragment : Fragment() {
                     }
                 )
         )
+    }
+
+    private fun setupFavorites(itemView: View) {
+
+        val favoritesIcon = itemView.findViewById(R.id.iv_favorites_icon) as? ImageView
+        var isFavoritesSelected = false
+
+        favoritesIcon?.setOnClickListener {
+
+            if (!isFavoritesSelected) {
+
+                favoritesIcon.setImageResource(R.drawable.ic_selected_favorites)
+                isFavoritesSelected = true
+            } else {
+                favoritesIcon.setImageResource(R.drawable.ic_unselected_favorites)
+                isFavoritesSelected = false
+            }
+        }
     }
 }
