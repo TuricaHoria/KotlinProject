@@ -11,8 +11,8 @@
         android:layout_height="wrap_content"
         android:background="@color/buttonColorPink"
         android:clickable="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:title="ToDo's">
+        app:title="ToDo's"
+        android:focusable="true">
 
         <ImageView
             android:id="@+id/iv_favorites_icon"

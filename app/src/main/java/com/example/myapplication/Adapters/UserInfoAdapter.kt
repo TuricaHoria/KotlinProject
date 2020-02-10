@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.Models.UserEntity
+import kotlinx.android.synthetic.main.user_info.view.*
 
 class UserInfoAdapter(
     private val userList: MutableList<UserEntity>,
@@ -36,11 +37,11 @@ class UserInfoAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val textViewName = itemView.findViewById(R.id.tv_user_name) as TextView
-        val textViewUsername = itemView.findViewById(R.id.tv_user_username) as TextView
-        val textViewId = itemView.findViewById(R.id.tv_user_id) as TextView
-        val textViewEmail = itemView.findViewById(R.id.tv_user_email) as TextView
-        val cardViewUser = itemView.findViewById(R.id.cv_user) as CardView
+        val textViewName = itemView.tv_user_name as TextView
+        val textViewUsername = itemView.tv_user_username as TextView
+        val textViewId = itemView.tv_user_id as TextView
+        val textViewEmail = itemView.tv_user_email as TextView
+        val cardViewUser = itemView.cv_user as CardView
 
         fun bind(user: UserEntity) {
 

@@ -116,13 +116,17 @@ class ToDoFragment : Fragment() {
 
         favoritesIcon?.setOnClickListener {
 
-            if (!isFavoritesSelected) {
+            when (isFavoritesSelected) {
 
-                favoritesIcon.setImageResource(R.drawable.ic_selected_favorites)
-                isFavoritesSelected = true
-            } else {
-                favoritesIcon.setImageResource(R.drawable.ic_unselected_favorites)
-                isFavoritesSelected = false
+                false -> {
+                    favoritesIcon.setImageResource(R.drawable.ic_selected_favorites)
+                    isFavoritesSelected = true
+                }
+
+                true -> {
+                    favoritesIcon.setImageResource(R.drawable.ic_unselected_favorites)
+                    isFavoritesSelected = false
+                }
             }
         }
     }

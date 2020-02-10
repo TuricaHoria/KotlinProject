@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.Models.ToDo
+import kotlinx.android.synthetic.main.to_do.view.*
 
 class ToDoAdapter(val toDoList: MutableList<ToDo>, val onToDoSelected: (Int) -> Unit) :
     RecyclerView.Adapter<ToDoAdapter.ViewHolder>() {
@@ -32,10 +33,10 @@ class ToDoAdapter(val toDoList: MutableList<ToDo>, val onToDoSelected: (Int) -> 
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val titleTextView = itemView.findViewById(R.id.tv_to_do_title) as TextView
-        val completedTextView = itemView.findViewById(R.id.tv_to_do_completed) as TextView
-        val idTextView = itemView.findViewById(R.id.tv_to_do_id) as TextView
-        val cardViewToDo = itemView.findViewById(R.id.cv_to_do) as CardView
+        val titleTextView = itemView.tv_to_do_title as TextView
+        val completedTextView = itemView.tv_to_do_completed as TextView
+        val idTextView = itemView.tv_to_do_id as TextView
+        val cardViewToDo = itemView.cv_to_do as CardView
 
         fun bind(toDo: ToDo) {
 
