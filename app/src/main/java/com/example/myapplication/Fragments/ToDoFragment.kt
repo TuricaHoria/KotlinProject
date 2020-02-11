@@ -14,9 +14,12 @@ import com.example.myapplication.R
 import com.example.myapplication.Models.ToDo
 import com.example.myapplication.Adapters.ToDoAdapter
 import com.example.myapplication.Api.ClientRequestAPI
+import com.example.myapplication.Models.Realm_ToDo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import io.realm.Realm
+import io.realm.exceptions.RealmException
 import kotlinx.android.synthetic.main.to_do_fragment.*
 import java.lang.RuntimeException
 
@@ -26,6 +29,7 @@ class ToDoFragment : Fragment() {
     private lateinit var fragmentActions: FragmentActions
     private var mCompositeDisposable: CompositeDisposable? = null
     private var mAdapter: ToDoAdapter? = null
+    private lateinit var realm: Realm
 
     companion object {
         const val TAG = "ToDoFragment"
@@ -44,6 +48,7 @@ class ToDoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        realm = Realm.getDefaultInstance()
         return inflater.inflate(R.layout.to_do_fragment, container, false)
     }
 
@@ -93,6 +98,7 @@ class ToDoFragment : Fragment() {
                 .subscribe(
                     { toDos ->
                         mAdapter = ToDoAdapter(toDos) { toDoId ->
+                            addToDoRealm(toDos)
                             val bundle = Bundle()
                             bundle.putInt(ARG_TODOID, toDoId)
                             fragmentActions.replaceFragment(bundle, NotificationSetupFragment.TAG)
@@ -128,6 +134,25 @@ class ToDoFragment : Fragment() {
                     isFavoritesSelected = false
                 }
             }
+        }
+    }
+
+    fun addToDoRealm(toDos: MutableList<ToDo>) {
+
+        realm.beginTransaction()
+        try {
+            for (toDo: ToDo in toDos) {
+                var realmToDo = realm.createObject(Realm_ToDo::class.java, toDo.id)
+                realmToDo.setId(toDo.id)
+                realmToDo.setCompleted(toDo.completed)
+                realmToDo.setTitle(toDo.title)
+                realm.commitTransaction()
+                Log.d(TAG, "Added ToDo list to Real")
+            }
+
+        } catch (e: RealmException) {
+
+            Log.e(TAG, e.message)
         }
     }
 }
